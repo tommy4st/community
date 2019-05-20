@@ -13,15 +13,15 @@ All you need to provide is PostgreSQL, Microsoft SQL Server or any MySQL variant
 
 ## Latest Release
 
-[Community Edition: v2.5.0](https://github.com/documize/community/releases)
+[Community Edition: v2.5.1](https://github.com/documize/community/releases)
 
-[Enterprise Edition: v2.5.0](https://www.documize.com/downloads)
+[Enterprise Edition: v2.5.1](https://www.documize.com/downloads)
 
 > *We provide frequent product updates for both cloud and self-hosted customers.*
 >
 > **Harvey Kandola, CEO/Founder @ Documize**
 
-## OS support
+## OS Support
 
 - Linux
 - Windows
@@ -49,7 +49,7 @@ All you need to provide is PostgreSQL, Microsoft SQL Server or any MySQL variant
 ## Technology Stack
 
 - Go (v1.12.5)
-- Ember JS (v3.8.0)
+- Ember JS (v3.10.0)
 
 ## Authentication Options
 
