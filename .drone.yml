@@ -1,0 +1,42 @@
+kind: pipeline
+name: build_all
+
+steps:
+- name: frontend
+  image: danlynn/ember-cli
+  commands:
+  - cd gui
+  - yarn
+  - ember build ---environment=production --output-path dist-prod --suppress-sizes true
+  - PACKAGE_VERSION=$(node -p -e "require('./package.json').version") echo "$PACKAGE_VERSION" > ../.tags
+
+- name: backend
+  image: golang
+  commands:
+  - ln -s /bin/true /bin/ember
+  - mkdir -p src/github.com/documize
+  - ln -s $PWD src/github.com/documize/community
+  - GOPATH="$PWD" ./build.sh
+  - ls ./bin
+  - cat .tags
+  - cp ./bin/* ./docker/
+
+- name: publish
+  image: plugins/github-release
+  settings:
+    api_key:
+      from_secret: github_token
+    files: bin/*
+  when:
+    event: tag
+
+- name: bundle
+  image: plugins/docker
+  settings:
+    context: docker/
+    dockerfile: docker/Dockerfile
+    username: tommy4st
+    password:
+      from_secret: dockerhub_password
+    repo: tommy4st/documize
+    auto_tag: true
